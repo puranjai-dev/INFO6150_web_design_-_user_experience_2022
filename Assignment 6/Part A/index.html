@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Calculator App</title>
+    <style>
+      html{ background-color: ghostwhite;
+      color:black}
+      #container {
+        width: 400px;
+        margin: auto;
+        background-color: #FFFFFF;
+        text-align: center;
+      }
+      main {
+        padding: 5px;
+      }
+
+      fieldset{
+        
+        background-color: #FFFFFF;
+        border: none;
+      }
+
+
+
+
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 3px solid #ccc;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+}
+
+.heading{
+  background-color: #1e1e1e;
+  color: white;
+  
+  padding: 25px;
+}
+
+
+.button {
+  background-color: initial;
+  background-image: linear-gradient(-180deg, #FF7E31, #E62C03);
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Inter,-apple-system,system-ui,Roboto,"Helvetica Neue",Arial,sans-serif;
+  height: 40px;
+  line-height: 40px;
+  outline: 0;
+  overflow: hidden;
+  padding: 0 20px;
+  pointer-events: auto;
+  position: relative;
+  text-align: center;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: top;
+  white-space: nowrap;
+  width: 100%;
+  z-index: 9;
+  border: 0;
+  transition: box-shadow .2s;
+}
+
+.button:hover {
+  box-shadow: rgba (253, 76, 0, 0.5) 0 3px 8px;
+}
+
+
+
+input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 3px solid #ccc;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+}
+.lbl {text-align: left;}
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <h2 class = "heading" style="text-align: center">LOGIN</h2>
+      <main>
+        <fieldset>
+          
+          <form id="myForm" action="./calculator.html" method="GET">
+            <p class="lbl">
+              <label >Email Id*:</label>
+              <input
+                type="text"
+                id="emailId"
+                name="emailId"
+                placeholder="name@northeastern.edu"
+              />
+            </p>
+            <p class="lbl">
+            <label class ="lbl" for="userName">Username*:</label>
+            <input
+              type="text"
+              name="userName"
+              id="userName"
+              placeholder="Please enter your username here"
+            />
+          </p>
+            
+<p class = "lbl">
+            <label class="lbl" for="password">Password*:
+            </label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Please enter your password here"
+            />
+          </p>
+            <br> 
+            <input type="submit" value="Login" class = "button" />
+            <br /><br />
+          </form>
+        </fieldset>
+      </main>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    <!-- <script type="text/javascript" src="jquery.redirect.min.js"></script> -->
+    <script>
+      $(document).ready(function () {
+        $('form[id="myForm"]').validate({
+          // in 'rules' user have to specify all the constraints for respective fields
+          rules: {
+            emailId: {
+              required: true,
+              northeasternEmail: true,
+            },
+            userName: {
+              required: true,
+              minlength: 3, //for length of lastname
+              userNameRegex: true,
+            },
+            password: {
+              required: true,
+              minlength: 8,
+              passwordRegex: true,
+            },
+          },
+          // in 'messages' user have to specify message as per rules
+          messages: {
+            emailId: {
+              required: " Email address cannot be left empty!",
+            },
+            userName: {
+              required: " Username cannot be left empty!",
+              minlength: " Your username must consist of at least 3 characters!",
+            },
+            password: {
+              required: " Password cannot be left empty!",
+              minlength:
+                " Your password should consist of at least 8 characters!",
+            },
+          },
+        });
+      });
+
+      jQuery.validator.addMethod(
+        "northeasternEmail",
+        function (value, element) {
+          return this.optional(element) || /^.+@northeastern.edu$/.test(value);
+        },
+        " Please enter a valid email address. Only '@northeastern.edu' email address allowed!"
+      );
+      jQuery.validator.addMethod(
+        "userNameRegex",
+        function (value, element) {
+          return (
+            this.optional(element) ||
+            /^(?=.{3,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/.test(
+              value
+            )
+          );
+        },
+        " Please enter a valid username!"
+      );
+      jQuery.validator.addMethod(
+        "passwordRegex",
+        function (value, element) {
+          return (
+            this.optional(element) ||
+            /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/.test(value)
+          );
+        },
+        " Password should be 8-16 characters long with at least one uppercase letter, lowercase letter and a number!"
+      );
+    </script>
+  </body>
+</html>
