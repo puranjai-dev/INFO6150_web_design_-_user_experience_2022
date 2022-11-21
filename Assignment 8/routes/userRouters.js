@@ -8,7 +8,7 @@ const {
 
 const router = express.Router();
 
-router.route("/").post(registerUser);
+router.route("/").post(registerUser); // /user/create
 router.route("/").put(editUser);
 router.route("/").delete(deleteUser);
 router.route("/").get(getUsers);

@@ -101,7 +101,7 @@ const registerUser = asyncHandler(async (req, res) => {
           "Passwords are 8-16 characters with uppercase letters, lowercase letters and at least one number",
       });
     } else {
-      const userExists = await User.findOne({ email });
+      const userExists = await User.findOne({ email }); //mongoose method findOne
 
       if (userExists) {
         res.status(400).send({
@@ -151,7 +151,7 @@ const deleteUser = asyncHandler(async (req, res) => {
         message: "Email address is not valid",
       });
     } else {
-      const deleteUser = await User.findOneAndDelete({ email: delemail })
+      const deleteUser = await User.findOneAndDelete({ email: delemail }) //mongoose method findOneandUpdate
         .then((data) => {
           if (data == null) {
             res.status(400).send({ message: "User does not exist" });
@@ -168,7 +168,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 
 const getUsers = asyncHandler(async (req, res) => {
   // console.log("Something happened");
-  const readUsers = await User.find()
+  const readUsers = await User.find() //mongoose method   
     .then((data) => {
       if (data.length == 0) {
         res
